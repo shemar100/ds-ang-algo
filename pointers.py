@@ -30,3 +30,5 @@ print('/nAfter value is updated:')
 print('dict1 =', dict1)
 print('dict2 =', dict2)
 
+# with a vairble pointed to a next vairable after the variable pointed to is updated the pointer still keeps its value
+# when a dictionary pointed another the dictoanry gets updated if the main dictionary pointed values updates
