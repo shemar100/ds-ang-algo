@@ -32,107 +32,122 @@ import helper as help
 
 class Node:
     def __init__(self, value):
-        self.value =value
-        self.next = None
+        self.value =value   #value of the node
+        self.next = None   #next node
 
 class LinkedList:
     def __init__(self, value):
-        new_node = Node(value)
-        self.head = new_node
-        self.tail = new_node
-        self.length = 1
+        new_node = Node(value) # create a new node
+        self.head = new_node # set the head to the new node
+        self.tail = new_node # set the tail to the new node
+        self.length = 1 # set the length to 1
         
     def append(self, value):
-        new_node = Node(value)
-        if self.head is None:
-            self.head = new_node
-        else:
-            self.tail.next = new_node
-            self.tail = new_node
+        new_node = Node(value) # create a new node
+        if self.head is None: # if the list is empty
+            self.head = new_node    # set the head to the new node
+        else: # if the list is not empty   
+            self.tail.next = new_node    # set the next node of the tail to the new node
+            self.tail = new_node    # set the tail to the new node
         
-        self.length += 1
-        return True
+        self.length += 1 # increase the length of the list
+        return True # return true
     
     def pop(self):
-        if self.length == 0:
-            return None
-        temp = self.head
-        pre =  self.head
-        while(temp.next):
-            pre = temp
-            temp = temp.next
-        self.tail = pre
-        self.tail.next = None
-        self.length -= 1
-        if self.length == 0:
-            self.head = None
-            self.tail = None
-        return temp.value
+        if self.length == 0:    # if the list is empty  
+            return None     # return none
+        temp = self.head   # set temp to the head
+        pre =  self.head  # set pre to the head
+        while(temp.next): # while the next node is not empty
+            pre = temp # set pre to temp
+            temp = temp.next # set temp to the next node
+        self.tail = pre # set the tail to the previous node
+        self.tail.next = None # set the next node of the tail to none
+        self.length -= 1 # decrease the length of the list
+        if self.length == 0: # if the length is 0
+            self.head = None # set the head to none
+            self.tail = None # set the tail to none
+        return temp.value # return the value of the node
     
-    def prepend(self, value):
-        new_node = Node(value)
-        if self.length == 0:
-            self.head = new_node
-            self.tail = new_node
-        else:
-            new_node.next = self.head
-            self.head = new_node
-        self.length += 1
-        return True
+    def prepend(self, value): 
+        new_node = Node(value)  # create a new node
+        if self.length == 0: # if the list is empty
+            self.head = new_node # set the head to the new node
+            self.tail = new_node    # set the tail to the new node
+        else: # if the list is not empty
+            new_node.next = self.head # set the next node of the new node to the head
+            self.head = new_node # set the head to the new node
+        self.length += 1 # increase the length of the list
+        return True # return true
     
-    def pop_first(self):
-        if self.length == 0:
-            return None
-        else:
-            temp  = self.head
-            self.head = self.head.next
-            temp.next = None
-            self.length -= 1
-        if self.length == 0:
-            self.tail = None
-        return temp.value
+    def pop_first(self):  
+        if self.length == 0:    # if the list is empty
+            return None    # return none
+        else: # if the list is not empty
+            temp  = self.head # set temp to the head
+            self.head = self.head.next # set the head to the next node
+            temp.next = None # set the next node of the temp to none
+            self.length -= 1 # decrease the length of the list
+        if self.length == 0: # if the length is 0
+            self.tail = None # set the tail to none
+        return temp.value # return the value of the node
     
-    def get(self, index):
-        if index < 0 or index >= self.length:
-            return None
-        temp = self.head
-        for _ in range(index):
-            temp = temp.next
-        return temp
+    def get(self, index): 
+        if index < 0 or index >= self.length: # if the index is less than 0 or greater than or equal to the length
+            return None # return none
+        temp = self.head # set temp to the head
+        for _ in range(index): # for loop to iterate through the list
+            temp = temp.next # set temp to the next node
+        return temp # return the node
     
     def set_value(self, index, value):
-        temp = self.get(index)
-        if temp:
-            temp.value = value
-            return True
-        return False
+        temp = self.get(index) # set temp to the node
+        if temp: # if the node is not none
+            temp.value = value # set the value of the node to the value
+            return True # return true
+        return False # return false
     
     def insert(self, index, value):
-        if index < 0 or index > self.length:
-            return None
-        if index == 0:
-            return self.prepend(value)
-        if index == self.length:
-            return self.append(value)
-        new_node = Node(value)
-        temp = self.get(index - 1)
-        new_node.next = temp.next
-        temp.next = new_node
-        self.length += 1
-        return True
+        if index < 0 or index > self.length: # if the index is less than 0 or greater than or equal to the length
+            return None # return none
+        if index == 0: # if the index is 0
+            return self.prepend(value) # O(1)
+        if index == self.length: # if the index is the length
+            return self.append(value) # O(1)
+        new_node = Node(value) # create a new node
+        temp = self.get(index - 1) # set temp to the node
+        new_node.next = temp.next # set the next node of the new node to the next node of the temp
+        temp.next = new_node # set the next node of the temp to the new node
+        self.length += 1   # increase the length of the list
+        return True # return true
     
     # remove item from linkedlist
-    def remove(self, index):
-        if index < 0 or index >= self.length:
-            return None
-        if index == 0:
-            return self.pop_first()
-        if index == self.length - 1:
-            return self.pop()
-        temp = self.get(index - 1)
-        temp.next = temp.next.next
-        self.length -= 1
-        return True
+    def remove(self, index): 
+        if index < 0 or index >= self.length: # if the index is less than 0 or greater than or equal to the length
+            return None # return none
+        if index == 0: # if the index is 0
+            return self.pop_first() # O(1)
+        if index == self.length - 1: # if the index is the length
+            return self.pop()  # O(n)
+        prev = self.get(index - 1)     # get the node before the node we want to remove
+        temp = prev.next # set temp to the next node of the node we want to remove
+        prev.next = temp.next    # set the next node of the previous node to the next node of the next node
+        temp.next = None # set the next node of the temp to none
+        self.length -= 1 # decrease the length of the list
+        return temp.value # return the value of the node
+    
+    def reverse(self):
+        temp = self.head # set temp to the head
+        self.head = self.tail # set the head to the tail
+        self.tail = temp # set the tail to the temp
+        after = temp.next # set after to the next node of the temp
+        before = None # set before to none
+        for _ in range(self.length):
+            after = temp.next # set after to the next node of the temp
+            temp.next = before # set the next node of the temp to before
+            before = temp # set before to the temp
+            temp = after # set temp to the after
+
     
     
             
@@ -147,6 +162,6 @@ my_linked_list.set_value(0, 10)
 help.print_list(my_linked_list)
 
 print(my_linked_list.remove(0), '\n')
-
+my_linked_list.reverse()
 help.print_list(my_linked_list)
 
