@@ -136,7 +136,7 @@ class LinkedList:
         self.length -= 1 # decrease the length of the list
         return temp.value # return the value of the node
     
-    def reverse(self):
+    def reverse(self): 
         temp = self.head # set temp to the head
         self.head = self.tail # set the head to the tail
         self.tail = temp # set the tail to the temp
