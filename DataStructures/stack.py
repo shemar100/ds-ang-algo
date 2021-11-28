@@ -4,6 +4,7 @@ class Node:
         self.next = None
 
 class Stack:
+    # Stack is LIFO: Last in first out
     def __init__(self, value):
         new_node = Node(value)
         self.top = new_node
@@ -18,6 +19,19 @@ class Stack:
             self.top = new_node
         self.height += 1
         
+    def pop(self):
+        if self.height == 0:
+            return None
+        
+        temp = self.top
+        self.top = self.top.next
+        temp.next = None
+        self.height -= 1
+        return temp
+    
+    
+
+        
     def print_stack(self):
         temp = self.top
         while temp is not None:
@@ -31,3 +45,5 @@ new_stack.push(2)
 new_stack.push(4)
 
 new_stack.print_stack()
+
+print(new_stack.pop())
