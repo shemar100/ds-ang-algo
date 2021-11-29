@@ -4,6 +4,10 @@
 # another way is storing kv in linked list 
 # with a hashtable you increase the randomnes making iT a prime number
 
+# hash method is O(1) 
+# set item O(1)
+# worst case all item at the same address which makes get O(n) best case all are in separate address whcih is O(1)
+
 class HashTable:
     def __init__(self, size = 7):
         self.data_map = [None] * size
@@ -28,6 +32,14 @@ class HashTable:
                     return self.data_map[index][i][1]
         return None
     
+    def keys(self):
+        all_keys = []
+        for i in range(len(self.data_map)):
+            if self.data_map[i] is not None:
+                for j in range(len(self.data_map[i])):
+                    all_keys.append(self.data_map[i][j][0])
+        return all_keys
+    
     def print_table(self):
         for i, val in enumerate(self.data_map):
             print(i, ": ", val)
@@ -38,3 +50,32 @@ my_hash_table.set_item('washers', 50)
 my_hash_table.set_item('lumber', 70)
 
 print(my_hash_table.get_item('bolts'))
+print(my_hash_table.keys())
+
+#interview question - look if list have a item common
+#naive approach:
+def item_in_common(list1, list2):
+    # this algorithm is not efficient beacause it is O(n * n)
+    for i in list1:
+        for j in list2:
+            if i == j:
+                return True
+    return False
+
+list1 = [1, 3, 5]
+list2 = [2, 4, 6]
+
+print(item_in_common(list1, list2))
+
+# more efficient method
+def item_in_common_2(list1, list2):
+    my_dict = {}
+    for i in list1:
+        my_dict[i] = True
+    
+    for j in list2:
+        if j in my_dict:
+            return True
+    return False
+
+#looking up a key in a hashtable is O(1) but a value is O(n)
